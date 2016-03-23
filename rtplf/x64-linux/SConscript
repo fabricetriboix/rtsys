@@ -1,0 +1,15 @@
+Import('variant')
+
+import os
+
+artefacts = {}
+
+artefacts['incs'] = [os.path.join("include", "rtplf.h")]
+srcs = [os.path.join("src", "rtplf.c")]
+artefacts['objs'] = [variant['env'].StaticObject(src) for src in srcs]
+artefacts['testsrcs'] = [os.path.join("test", "unittest.c")]
+
+testmain_src = os.path.join("src", "rttestmain.c")
+artefacts['rttestmainobj'] = variant['envnp'].StaticObject(testmain_src)
+
+Return('artefacts')

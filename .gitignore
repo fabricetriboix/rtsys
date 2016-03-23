@@ -30,3 +30,11 @@
 
 # Debug files
 *.dSYM/
+
+# Other temporary files
+*.orig
+*.pyc
+*.swp
+/build/
+/.scon*
+/config.log
