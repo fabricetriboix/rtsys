@@ -90,7 +90,7 @@ for v in variantNames:
     variants[v]['env'].Append(LIBPATH = settings[v]['libpath'])
     variants[v]['env'].Append(LIBPATH = [variants[v]['build_root']])
 
-    # Create a environment that is not c90-pedantic
+    # Create another environment that is not c90-pedantic
     flags = []
     for f in settings[v]['ccflags']:
         if f != '-std=c90' and f != '-Wpedantic' and f != '-pedantic-errors':
