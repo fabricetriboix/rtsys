@@ -24,7 +24,7 @@ if path == "":
 output = subprocess.check_output([path])
 
 # Compare the actual output with what is expected
-f = open("rttest/test/expected.rtt", 'r')
+f = open("src/rttest/test/expected.rtt", 'r')
 expected = f.read()
 if expected != output:
     print("FAIL rttest - output: '{}', expected '{}'".format(output, expected))
@@ -64,7 +64,7 @@ for dName, dirList, fileList in os.walk("."):
 # Print the results
 ret = 0
 try:
-    args = ["rttest/scripts/rttest2text.py", "rtsys.rtt"]
+    args = ["src/rttest/scripts/rttest2text.py", "rtsys.rtt"]
     args.extend(unitTests)
     subprocess.check_call(args)
 except:

@@ -15,12 +15,12 @@ subdirs = [os.path.join("rtplf", variant['target']),
 for subdir in subdirs:
     artefacts = SConscript(os.path.join(subdir, "SConscript"),
             exports={'variant': variant})
-    variant['env'].Append(CPPPATH = [os.path.join("#" + subdir, "include")])
-    variant['envnp'].Append(CPPPATH = [os.path.join("#" + subdir, "include")])
+    variant['env'].Append(CPPPATH = [os.path.join("#src", subdir, "include")])
+    variant['envnp'].Append(CPPPATH = [os.path.join("#src", subdir, "include")])
 
     for key, value in artefacts.items():
         if key == 'incs':
-            incs.extend([os.path.join(subdir, inc) for inc in value])
+            incs.extend([os.path.join("src", subdir, inc) for inc in value])
 
         elif key == 'objs':
             objs.extend(value)
@@ -60,7 +60,13 @@ if variant['env']['HAS_DOXYGEN'] == "yes":
     doxyDir = os.path.join(variant['build_root'], "doxy")
     cmd += doxyDir + " "
     cmd += " ".join(incs)
-    variant['env'].Command("doc", incs, cmd)
+    tmpincs = []
+    for inc in incs:
+        # Strip "src/" from include file paths.
+        # This is required by the `Command` below; why? I don't know...
+        tmp = inc.split(os.sep, 1)[1]
+        tmpincs.append(tmp)
+    variant['env'].Command("doc", tmpincs, cmd)
     variant['env'].Install(variant['install_doc'], doxyDir)
 
 # Install final libraries
