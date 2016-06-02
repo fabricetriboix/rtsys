@@ -18,12 +18,14 @@ Everything in rtsys has been design to run on very small platforms.
 Even an 8-bit PIC should be able to run it.
 
 
-Getting started (under Linux)
------------------------------
+Getting started
+---------------
 
     $ scons --help
-    $ scons --prefix=/usr/local     # Build and install under /usr/local
-    $ ./run_unit_tests.py           # Run the unit tests
+    $ scons --mkdoc -j4    # Build
+    $ ./run_unit_tests.py  # Run the unit tests
+    $ ./install.py --help
+    $ ./install.py
 
 Read the doxygen documentation to learn how to use rtsys.
 
