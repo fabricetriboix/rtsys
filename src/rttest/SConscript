@@ -10,8 +10,8 @@ artefacts['incs'] = [os.path.join("include", "rttest.h"),
 srcs = [os.path.join("src", "rttest.c")]
 artefacts['rttestobjs'] = [variant['envnp'].StaticObject(src) for src in srcs]
 
-# For some reason, scons decides to remove the CPPPATH I add if I
-# don't use a leading "#"...
+# For some reason, scons decides to remove the `CPPPATH` I add if I don't use a
+# leading "#"...
 rttenv = variant['envnp'].Clone()
 rttenv.Append(CPPPATH = [os.path.join("#src", "rttest", "test"),
                          os.path.join("#src", "rttest", "include")])
@@ -21,8 +21,5 @@ testrtt_srcs = [os.path.join("test", "unittest1.c"),
 artefacts['testrttobjs'] = [rttenv.StaticObject(src) for src in testrtt_srcs]
 artefacts['testrttobjs'].append(rttenv.StaticObject(os.path.join("test", "testme.c")))
 artefacts['testrttobjs'].append(rttenv.StaticObject(os.path.join("test", "testrttest.c")))
-
-variant['env'].Install(variant['install_bin'],
-        os.path.join("#src", "rttest", "scripts", "rttest2text.py"))
 
 Return('artefacts')
