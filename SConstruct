@@ -7,7 +7,7 @@ autoplf = autodetectplf.autodetectplf()
 
 # Command-line options
 
-AddOption("--target", dest='target', default="",
+AddOption("--target", dest='target', default=autoplf,
         help="Compilation target; eg: x64-linux, arm-linux "
                 "(auto-detected default: " + autoplf + ")")
 
@@ -37,6 +37,11 @@ import plfsettings
 
 env = Environment(AR="dummy", CC="dummy", CXX="dummy", ENV={},
         HAS_DOXYGEN="no", HAS_DOT="no")
+
+# Propagate certain environment variables
+for i in ['C_INCLUDE_PATH', 'LIBRARY_PATH']:
+    if os.environ.has_key(i):
+        env['ENV'][i] = os.environ[i]
 
 if not GetOption('verbose'):
     env['CCCOMSTR']     = "CC      $TARGET"
@@ -101,7 +106,7 @@ for v in variantNames:
                 hasDot = True
 
         if not conf.CheckCC():
-            print("C compiler not found: " + variants[v]['env']['CC'])
+            print("ERROR C compiler not found: " + variants[v]['env']['CC'])
             Exit(1)
 
         variants[v]['env'] = conf.Finish()
