@@ -50,6 +50,17 @@ the terms of the GPLv3, or for other reasons. Please refer to the
 introduction above.
 
 
+Coverity status
+---------------
+
+![Coverity scan build status](https://scan.coverity.com/projects/9302/badge.svg)
+
+This project is regularily scanned through Coverity.
+[Click here](https://scan.coverity.com/projects/fabricetriboix-rtsys)
+for its status.
+
+
+
 The Modules
 ===========
 
