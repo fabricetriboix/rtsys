@@ -52,7 +52,7 @@ introduction above.
 Coverity status
 ---------------
 
-![Coverity scan build status](https://scan.coverity.com/project/9302/badge.svg)
+![Coverity scan build status](https://scan.coverity.com/projects/9302/badge.svg)
 
 This project is regularily scanned through Coverity.
 [Click here](https://scan.coverity.com/projects/fabricetriboix-rtsys)
