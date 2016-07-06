@@ -49,6 +49,7 @@ A commercial license can be provided if you do not wish to be bound by
 the terms of the GPLv3, or for other reasons. Please refer to the
 introduction above.
 
+
 Coverity status
 ---------------
 
@@ -57,6 +58,7 @@ Coverity status
 This project is regularily scanned through Coverity.
 [Click here](https://scan.coverity.com/projects/fabricetriboix-rtsys)
 for its status.
+
 
 
 The Modules
