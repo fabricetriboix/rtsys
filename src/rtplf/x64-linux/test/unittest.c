@@ -316,7 +316,7 @@ RTT_TEST_START(strtou32_should_ignore_extra_in_base_8)
 {
     uint32_t x;
     RTT_EXPECT(RTStringToU32("1234567890", RTBASE_8, &x));
-    RTT_EXPECT(x = 01234567u);
+    RTT_EXPECT(x == 01234567u);
 }
 RTT_TEST_END
 
