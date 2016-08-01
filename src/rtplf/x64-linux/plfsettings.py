@@ -20,7 +20,7 @@ def GetPlfSettings(variantNames):
         settings[v]['bindir'] = "bin"
         settings[v]['libdir'] = "lib"
         settings[v]['incdir'] = "include"
-        settings[v]['docdir'] = "doc"
+        settings[v]['docdir'] = "doc/rtsys"
         settings[v]['etcdir'] = "etc"
         settings[v]['shrdir'] = "share"
         settings[v]['vardir'] = "var"
