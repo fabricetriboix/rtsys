@@ -59,6 +59,8 @@
  *    an existing state within this state machine
  */
 
+// TODO: time-triggered scheduler
+
 #ifndef RTHSM_h_
 #define RTHSM_h_
 
