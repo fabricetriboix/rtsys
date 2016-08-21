@@ -123,7 +123,7 @@ struct RTPrivTestGroup
 
 /** Register a test group
  *
- * \param group [in] Group to register; must not be NULL. `group->mId` must be
+ * @param group [in] Group to register; must not be NULL. `group->mId` must be
  *                   different from all the other groups already registered.
  */
 void RTPrivTestRegisterGroup(struct RTPrivTestGroup* group);

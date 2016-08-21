@@ -16,8 +16,8 @@
 
 /** Hierarchical state machine
  *
- * \defgroup rthsm Hierarchical state machine
- * \addtogroup rthsm
+ * @defgroup rthsm Hierarchical state machine
+ * @addtogroup rthsm
  * @{
  *
  * This module implements hierarchical state machines based on a subset of UML
@@ -59,7 +59,7 @@
  *    an existing state within this state machine
  */
 
-// TODO: time-triggered scheduler
+/* TODO: time-triggered scheduler */
 
 #ifndef RTHSM_h_
 #define RTHSM_h_
@@ -297,15 +297,15 @@ typedef struct
  * transition is unconditional, has no action, and always happen the first time
  * the state machine is stepped.
  *
- * \param hsm        [out]    The HSM structure to initialise
- * \param states     [in,out] Array of states for this state machine. This
+ * @param hsm        [out]    The HSM structure to initialise
+ * @param states     [in,out] Array of states for this state machine. This
  *                            array (and any sub-array such as transitions)
  *                            must be statically allocated. The ownership of
  *                            this array is transferred to this module, do not
  *                            touch any part of the array once `RTHsmInit()` is
  *                            called.
- * \param statesSize [in,out] Size of the above array
- * \param eventQueue [in,out] Event queue to use; the ownership is transferred
+ * @param statesSize [in,out] Size of the above array
+ * @param eventQueue [in,out] Event queue to use; the ownership is transferred
  *                            to this module, do not touch the FIFO once
  *                            `RTHsmInit()` is called.
  */
@@ -318,11 +318,11 @@ void RTHsmInit(RTHsm* hsm, RTHsmState* states, uint8_t statesSize,
  * This is just a utility function that encapsulates a call to push the event
  * onto the state machine queue.
  *
- * \param hsm   [in,out] The HSM where to push the event
- * \param event [in]     The event to push; a copy of the `event` will be made,
+ * @param hsm   [in,out] The HSM where to push the event
+ * @param event [in]     The event to push; a copy of the `event` will be made,
  *                       so the ownership of the `event` remains with you.
  *
- * \return `RTTrue` if success, `RTFalse` if event queue is full.
+ * @return `RTTrue` if success, `RTFalse` if event queue is full.
  */
 RTBool RTHsmPushEvent(RTHsm* hsm, const RTHsmEvent* event);
 
@@ -332,13 +332,13 @@ RTBool RTHsmPushEvent(RTHsm* hsm, const RTHsmEvent* event);
  * Please note that the very first time this function is called, it will
  * normally return `RTHSM_RESULT_OK` even if the event queue is empty.
  *
- * \param hsm         [in,out] The state machine to step
- * \param guardResult [out]    The value returned by the guard condition that
+ * @param hsm         [in,out] The state machine to step
+ * @param guardResult [out]    The value returned by the guard condition that
  *                             failed. May be NULL if you are not interested in
  *                             this information. Only set when `RTHsmStep()`
  *                             returns `RTHSM_RESULT_GUARD`.
  *
- * \return
+ * @return
  *  - `RTHSM_STEP_RESULT_OK`: An event has been de-queued, processed and a
  *     transition occurred.
  *  - `RTHSM_STEP_RESULT_EMPTY`: Event queue is empty, no action taken.
@@ -357,7 +357,7 @@ RTHsmResult RTHsmStep(RTHsm* hsm, uint8_t* guardResult);
  * The state machine will go back to a state identical to what it was after the
  * call to `RTHsmInit()` and before any call to `RTHsmStep()`.
  *
- * \param hsm [in,out] The state machine to reset
+ * @param hsm [in,out] The state machine to reset
  */
 void RTHsmReset(RTHsm* hsm);
 

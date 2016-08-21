@@ -26,10 +26,10 @@
 
 /** Lookup a state from its id
  *
- * \param hsm [in] The state machine to query
- * \param id  [in] State id to lookup
+ * @param hsm [in] The state machine to query
+ * @param id  [in] State id to lookup
  *
- * \return A pointer to the found state structure, or NULL if no state with
+ * @return A pointer to the found state structure, or NULL if no state with
  *         this id has been found
  */
 static RTHsmState* rthsmLookupStateFromId(const RTHsm* hsm, uint8_t id);
@@ -42,8 +42,8 @@ static RTHsmState* rthsmLookupStateFromId(const RTHsm* hsm, uint8_t id);
  *
  * `hsm->current` will be set to the childmost sub-state.
  *
- * \param hsm   [in,out] The state machine to work on
- * \param state [in]     The state to start from
+ * @param hsm   [in,out] The state machine to work on
+ * @param state [in]     The state to start from
  */
 static void rthsmTraverseToChildmostState(RTHsm* hsm, RTHsmState* state);
 
@@ -61,12 +61,12 @@ static void rthsmTraverseToChildmostState(RTHsm* hsm, RTHsmState* state);
  * If no transition is found, this function returns NULL and `guardResult` is
  * set to 0.
  *
- * \param hsm         [in]  The state machine to query
- * \param event       [in]  The received event
- * \param guardResult [out] The value returned by the guard condition that
+ * @param hsm         [in]  The state machine to query
+ * @param event       [in]  The received event
+ * @param guardResult [out] The value returned by the guard condition that
  *                          failed, if applicable. Must not be NULL.
  *
- * \return A pointer to the found transition, or NULL if no transition found
+ * @return A pointer to the found transition, or NULL if no transition found
  */
 static RTHsmTransition* rthsmGetBestTransition(const RTHsm* hsm,
         const RTHsmEvent* event, uint8_t* guardResult);
@@ -74,9 +74,9 @@ static RTHsmTransition* rthsmGetBestTransition(const RTHsm* hsm,
 
 /* Perform a transition of the HSM's current state
  *
- * \param hsm        [in,out] The state machine to action
- * \param transition [in]     The transition to execute
- * \param event      [in]     The event that triggered the transition
+ * @param hsm        [in,out] The state machine to action
+ * @param transition [in]     The transition to execute
+ * @param event      [in]     The event that triggered the transition
  */
 static void rthsmDoSelfTransition(RTHsm* hsm,
         const RTHsmTransition* transition, const RTHsmEvent* event);
@@ -87,9 +87,9 @@ static void rthsmDoSelfTransition(RTHsm* hsm,
  * A transition that is not a self-transition has a destination state that is
  * different from the originating state.
  *
- * \param hsm        [in,out] The state machine to action
- * \param transition [in]     The transition to execute
- * \param event      [in]     The event that triggered the transition
+ * @param hsm        [in,out] The state machine to action
+ * @param transition [in]     The transition to execute
+ * @param event      [in]     The event that triggered the transition
  */
 static void rthsmDoTransition(RTHsm* hsm,
         const RTHsmTransition* transition, const RTHsmEvent* event);

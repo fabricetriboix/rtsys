@@ -16,8 +16,8 @@
 
 /** Test framework
  *
- * \defgroup rttest Test framework
- * \addtogroup rttest
+ * @defgroup rttest Test framework
+ * @addtogroup rttest
  * @{
  *
  * Calling `RTTestRun()` will run all test groups and will write the results as
@@ -104,11 +104,11 @@ typedef RTBool (*RTTestWriteOctet)(uint8_t octet);
 
 /** Start a test group
  *
- * \param _name  [in] Test group name, do not enclose in quotes
- * \param _id    [in] Numerical identifier uniquely identifying this test group.
+ * @param _name  [in] Test group name, do not enclose in quotes
+ * @param _id    [in] Numerical identifier uniquely identifying this test group.
  *                    This number must fit an `uint32_t`.
- * \param _entry [in] Entry action, can be NULL if no entry action; see below
- * \param _exit  [in] Exit action, can be NULL if no entry action; see below
+ * @param _entry [in] Entry action, can be NULL if no entry action; see below
+ * @param _exit  [in] Exit action, can be NULL if no entry action; see below
  *
  * The entry and exit actions must be functions with the following prototype:
  *
@@ -124,7 +124,7 @@ typedef RTBool (*RTTestWriteOctet)(uint8_t octet);
 
 /** Start a test case
  *
- * \param _name [in] Test case name, do not enclose in quotes. `_name` must be
+ * @param _name [in] Test case name, do not enclose in quotes. `_name` must be
  *                   unique across all the test groups. `_name` will be used as
  *                   a compiler symbol, so it must be unique within the limits
  *                   of your compiler. For example, if your compiler determines
@@ -141,9 +141,9 @@ typedef RTBool (*RTTestWriteOctet)(uint8_t octet);
 
 /** End a test group previously started with `RTT_GROUP_START()`
  *
- * \param _name [in] The test group name; this must be exactly the same as the
+ * @param _name [in] The test group name; this must be exactly the same as the
  *                   one used in the call to `RTT_GROUP_START()`.
- * \param ...   [in] Comma-separated list of test cases to include in this
+ * @param ...   [in] Comma-separated list of test cases to include in this
  *                   group. These must be the exact names used in previous calls
  *                   to `RTT_TEST_START()`.
  */
@@ -152,7 +152,7 @@ typedef RTBool (*RTTestWriteOctet)(uint8_t octet);
 
 /** Fail a test case if a condition is not true
  *
- * \param _cond [in] The condition to test. If `_cond` evaluates to false,
+ * @param _cond [in] The condition to test. If `_cond` evaluates to false,
  *                   this test case is considered failed and no more code from
  *                   this test case will be executed.
  */
@@ -161,7 +161,7 @@ typedef RTBool (*RTTestWriteOctet)(uint8_t octet);
 
 /** Fatally fail a test case if a condition is not true
  *
- * \param _cond [in] The condition to test. If `_cond` evaluates to false,
+ * @param _cond [in] The condition to test. If `_cond` evaluates to false,
  *                   this test case is considered failed and no more code from
  *                   this test case will be executed. In addition, no more
  *                   test cases in this group will be executed. Other test
@@ -180,14 +180,14 @@ typedef RTBool (*RTTestWriteOctet)(uint8_t octet);
  *
  * Calling this function will run the tests.
  *
- * \param wrOctet [in] Function to write an octet to the output; must not be
+ * @param wrOctet [in] Function to write an octet to the output; must not be
  *                     NULL.
- * \param groups  [in] Array of numerical identifiers of test groups to run. Set
+ * @param groups  [in] Array of numerical identifiers of test groups to run. Set
  *                     to NULL to run all test groups.
- * \param ngroups [in] Size of the `groups` array. Set to 0 to run all test
+ * @param ngroups [in] Size of the `groups` array. Set to 0 to run all test
  *                     groups.
  *
- * \return * The number of failed test cases (0 if all the tests passed)
+ * @return * The number of failed test cases (0 if all the tests passed)
  *         * -1 if a call to `outch()` failed
  *         * -2 if a call to a group entry action failed
  *         * -3 if a call to a group exit action failed
