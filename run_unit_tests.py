@@ -58,7 +58,7 @@ unitTests = []
 for dName, dirList, fileList in os.walk("."):
     if dName != "." and dName != "./build":
         for f in fileList:
-            if fnmatch.fnmatch(f, "unittest*.c"):
+            if fnmatch.fnmatch(f, "test-*.c"):
                 unitTests.append(dName + "/" + f)
 
 # Print the results

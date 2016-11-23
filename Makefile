@@ -57,6 +57,13 @@ TOPDIR := ../../..
 # Export all variables
 export
 
+# Check there are no duplicate source file names
+count1 := $(shell find src -name '*.c' | sed -e 's:.*/::' | sort | wc -l)
+count2 := $(shell find src -name '*.c' | sed -e 's:.*/::' | sort | uniq | wc -l)
+ifneq ($(count1),$(count2))
+$(error Duplicate source file names detected)
+endif
+
 all install:
 	@mkdir -p $(BUILDDIR) && $(MAKE) -C $(BUILDDIR) -f $(TOPDIR)/make.mk
 
