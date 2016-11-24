@@ -73,3 +73,6 @@ test: all
 
 clean:
 	rm -rf $(BUILDDIR)
+
+debug release:
+	@$(MAKE) -C . VARIANT=$@ all
