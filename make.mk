@@ -36,10 +36,13 @@ INCS := $(foreach i,$(MODULES),-I$(i)/include)
 # rtsys library object files
 OBJS := rtplf.o rtfifo.o rthsm.o
 
+# rttest library object files
+RTTEST_OBJS := rttest.o
+
 
 # Standard targets
 
-all: librtsys.a
+all: librtsys.a librttest.a
 
 
 # Rules to build object files, libraries and programs
@@ -50,7 +53,18 @@ cmd="$(CC) $(CFLAGS_P) $(INCS) -o $(1) -c $(2)"; \
 if [ $(V) == 1 ]; then \
 	echo "$$cmd"; \
 else \
-	echo "CC  $(1)"; \
+	echo "CC_P  $(1)"; \
+fi; \
+$$cmd
+endef
+
+define RUN_CC
+set -eu; \
+cmd="$(CC) $(CFLAGS) $(INCS) -o $(1) -c $(2)"; \
+if [ $(V) == 1 ]; then \
+	echo "$$cmd"; \
+else \
+	echo "CC    $(1)"; \
 fi; \
 $$cmd
 endef
@@ -61,7 +75,7 @@ cmd="$(AR) crs $(1) $(2)"; \
 if [ $(V) == 1 ]; then \
 	echo "$$cmd"; \
 else \
-	echo "AR  $(1)"; \
+	echo "AR    $(1)"; \
 fi; \
 $$cmd
 endef
@@ -76,7 +90,14 @@ rthsm.o: rthsm.c
 	@$(call RUN_CC_P,$@,$<)
 
 librtsys.a: $(OBJS)
+
+librttest.a: $(RTTEST_OBJS)
+
+lib%.a:
 	@$(call RUN_AR,$@,$^)
+
+%.o: %.c
+	@$(call RUN_CC,$@,$<)
 
 dbg:
 	@echo "Platform = $(PLF)"
