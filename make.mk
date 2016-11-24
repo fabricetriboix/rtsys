@@ -38,11 +38,12 @@ LIBRTSYS_OBJS := rtplf.o rtfifo.o rthsm.o
 LIBRTTEST_OBJS := rttest.o
 RTTEST_MAIN_OBJ := rttestmain.o
 RTTEST_TEST_OBJS := unittest1.o unittest2.o testme.o
+RTSYS_TEST_OBJS := test-rtplf.o test-rtfifo.o test-rthsm.o
 
 
 # Standard targets
 
-all: librtsys.a librttest.a rttest_unit_tests
+all: librtsys.a librttest.a rttest_unit_tests rtsys_unit_tests
 
 
 # Rules to build object files, libraries and programs
@@ -105,6 +106,9 @@ librtsys.a: $(LIBRTSYS_OBJS)
 librttest.a: $(LIBRTTEST_OBJS)
 
 rttest_unit_tests: $(RTTEST_TEST_OBJS) $(RTTEST_MAIN_OBJ)
+	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
+
+rtsys_unit_tests: $(RTSYS_TEST_OBJS) $(RTTEST_MAIN_OBJ)
 	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
 
 lib%.a:
