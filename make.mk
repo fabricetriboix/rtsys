@@ -28,21 +28,21 @@ MODULES := $(TOPDIR)/src/rtplf/$(PLF) $(TOPDIR)/src/rtfifo $(TOPDIR)/src/rthsm \
            $(TOPDIR)/src/rttest
 
 # Path for make to search for source files
-VPATH := $(foreach i,$(MODULES),$(i)/src)
+VPATH := $(foreach i,$(MODULES),$(i)/src) $(foreach i,$(MODULES),$(i)/test)
 
 # Include paths for compilation
 INCS := $(foreach i,$(MODULES),-I$(i)/include)
 
-# rtsys library object files
-OBJS := rtplf.o rtfifo.o rthsm.o
-
-# rttest library object files
-RTTEST_OBJS := rttest.o
+# List of object files for various targets
+LIBRTSYS_OBJS := rtplf.o rtfifo.o rthsm.o
+LIBRTTEST_OBJS := rttest.o
+RTTEST_MAIN_OBJ := rttestmain.o
+RTTEST_TEST_OBJS := unittest1.o unittest2.o testme.o
 
 
 # Standard targets
 
-all: librtsys.a librttest.a
+all: librtsys.a librttest.a rttest_unit_tests
 
 
 # Rules to build object files, libraries and programs
@@ -80,6 +80,17 @@ fi; \
 $$cmd
 endef
 
+define RUN_LINK
+set -eu; \
+cmd="$(CC) $(LINKFLAGS) -o $(1) $(2) -L. $(3)"; \
+if [ $(V) == 1 ]; then \
+	echo "$$cmd"; \
+else \
+	echo "LINK  $(1)"; \
+fi; \
+$$cmd
+endef
+
 rtplf.o: rtplf.c
 	@$(call RUN_CC_P,$@,$<)
 
@@ -89,9 +100,12 @@ rtfifo.o: rtfifo.c
 rthsm.o: rthsm.c
 	@$(call RUN_CC_P,$@,$<)
 
-librtsys.a: $(OBJS)
+librtsys.a: $(LIBRTSYS_OBJS)
 
-librttest.a: $(RTTEST_OBJS)
+librttest.a: $(LIBRTTEST_OBJS)
+
+rttest_unit_tests: $(RTTEST_TEST_OBJS) $(RTTEST_MAIN_OBJ)
+	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
 
 lib%.a:
 	@$(call RUN_AR,$@,$^)

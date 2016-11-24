@@ -34,7 +34,7 @@ PLF := $(shell ./autodetectplf.py)
 CC = gcc
 AR = ar
 CFLAGS = -Wall -Wextra -Werror -Wno-unused-parameter -std=c90 -pthread
-LDFLAGS = -pthread
+LINKFLAGS = -pthread
 
 ifneq ($(VARIANT),debug)
 CFLAGS += -O3
