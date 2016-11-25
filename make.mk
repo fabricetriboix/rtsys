@@ -26,6 +26,9 @@ MODULES := $(TOPDIR)/src/rtplf/$(PLF) $(TOPDIR)/src/rtfifo $(TOPDIR)/src/rthsm \
 # Path for make to search for source files
 VPATH := $(foreach i,$(MODULES),$(i)/src) $(foreach i,$(MODULES),$(i)/test)
 
+# Output libraries
+LIBS := librtsys.a librttest.a
+
 # Include paths for compilation
 INCS := $(foreach i,$(MODULES),-I$(i)/include)
 
@@ -106,10 +109,10 @@ librtsys.a: $(LIBRTSYS_OBJS)
 
 librttest.a: $(LIBRTTEST_OBJS)
 
-rttest_unit_tests: $(RTTEST_TEST_OBJS) $(RTTEST_MAIN_OBJ)
+rttest_unit_tests: $(RTTEST_TEST_OBJS) $(RTTEST_MAIN_OBJ) $(LIBS)
 	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
 
-rtsys_unit_tests: $(RTSYS_TEST_OBJS) $(RTTEST_MAIN_OBJ)
+rtsys_unit_tests: $(RTSYS_TEST_OBJS) $(RTTEST_MAIN_OBJ) $(LIBS)
 	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
 
 
@@ -134,6 +137,25 @@ else
 	fi; \
 	$$cmd
 endif
+
+test: test_rttest test_rtsys
+
+test_rttest: rttest_unit_tests
+	@set -eu; \
+	./$< > rttest.rtt; \
+	if `cmp rttest.rtt $(TOPDIR)/src/rttest/test/expected.rtt > /dev/null`; \
+	then \
+		echo "TEST  rttest OK"; \
+	else \
+		echo "FAIL  rttest"; \
+		exit 1; \
+	fi
+
+test_rtsys: rtsys_unit_tests
+	@set -eu; \
+	./$< > rtsys.rtt; \
+	find $(TOPDIR) -name 'test-*.c' \
+		| xargs $(TOPDIR)/src/rttest/scripts/rttest2text.py rtsys.rtt
 
 
 lib%.a:
