@@ -55,7 +55,7 @@ doc: $(BUILDDIR)/doc/html/index.html
 define RUN_CC_P
 set -eu; \
 cmd="$(CC) $(CFLAGS_P) $(INCS) -o $(1) -c $(2)"; \
-if [ $(V) == 1 ]; then \
+if [ $(D) == 1 ]; then \
 	echo "$$cmd"; \
 else \
 	echo "CC_P  $(1)"; \
@@ -66,7 +66,7 @@ endef
 define RUN_CC
 set -eu; \
 cmd="$(CC) $(CFLAGS) $(INCS) -o $(1) -c $(2)"; \
-if [ $(V) == 1 ]; then \
+if [ $(D) == 1 ]; then \
 	echo "$$cmd"; \
 else \
 	echo "CC    $(1)"; \
@@ -77,7 +77,7 @@ endef
 define RUN_AR
 set -eu; \
 cmd="$(AR) crs $(1) $(2)"; \
-if [ $(V) == 1 ]; then \
+if [ $(D) == 1 ]; then \
 	echo "$$cmd"; \
 else \
 	echo "AR    $(1)"; \
@@ -88,7 +88,7 @@ endef
 define RUN_LINK
 set -eu; \
 cmd="$(CC) $(LINKFLAGS) -o $(1) $(2) -L. $(3)"; \
-if [ $(V) == 1 ]; then \
+if [ $(D) == 1 ]; then \
 	echo "$$cmd"; \
 else \
 	echo "LINK  $(1)"; \
@@ -128,7 +128,7 @@ else
 	fi; \
 	cat doxy1 | sed -e 's:INPUT[	 ]*=.*:INPUT = $^:' > doxy2; \
 	cmd="doxygen doxy3"; \
-	if [ $(V) == 1 ]; then \
+	if [ $(D) == 1 ]; then \
 		cp doxy2 doxy3; \
 		echo "$$cmd"; \
 	else \

@@ -20,12 +20,12 @@
 # names. This is because all object files go to a single build directory. Also
 # ensure that no directory or file name has blank in them.
 
-# Set V to 1 to increase verbosity
-V = 0
+# Set D to 1 to increase verbosity
+D = 0
 
-# Set VARIANT to "release" to make a release build
+# Set V to "release" to make a release build
 # Supported variants: "debug" (default) and "release"
-VARIANT = debug
+V = debug
 
 # Set PLF to the platform you want to build to
 # This must be one of the platform directory listed under "src/rtplf"
@@ -36,7 +36,7 @@ AR = ar
 CFLAGS = -Wall -Wextra -Werror -Wno-unused-parameter -std=c90 -pthread
 LINKFLAGS = -pthread
 
-ifneq ($(VARIANT),debug)
+ifneq ($(V),debug)
 CFLAGS += -O3
 else
 CFLAGS += -O0 -g
@@ -51,7 +51,7 @@ CFLAGS_P = $(CFLAGS) -Wpedantic -pedantic-errors
 
 ###  DO NOT MODIFY ANYTHIG BELOW THIS LINE  ###
 
-BUILDDIR := build/$(PLF)/$(VARIANT)
+BUILDDIR := build/$(PLF)/$(V)
 TOPDIR := ../../..
 
 # Export all variables
@@ -71,4 +71,4 @@ clean:
 	rm -rf $(BUILDDIR)
 
 debug release:
-	@$(MAKE) -C . VARIANT=$@ all
+	@$(MAKE) -C . V=$@ all
