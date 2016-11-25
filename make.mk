@@ -20,10 +20,6 @@ CCACHE := $(shell which ccache 2> /dev/null)
 DOXYGEN := $(shell which doxygen 2> /dev/null)
 DOT := $(shell which dot 2> /dev/null)
 
-ifeq ($(DOXYGEN),)
-$(warning doxygen not found, documentation will not be built)
-endif
-
 MODULES := $(TOPDIR)/src/rtplf/$(PLF) $(TOPDIR)/src/rtfifo $(TOPDIR)/src/rthsm \
            $(TOPDIR)/src/rttest
 
@@ -32,6 +28,9 @@ VPATH := $(foreach i,$(MODULES),$(i)/src) $(foreach i,$(MODULES),$(i)/test)
 
 # Include paths for compilation
 INCS := $(foreach i,$(MODULES),-I$(i)/include)
+
+# List public header files
+HDRS := $(foreach i,$(MODULES),$(wildcard $(i)/include/*.h))
 
 # List of object files for various targets
 LIBRTSYS_OBJS := rtplf.o rtfifo.o rthsm.o
@@ -43,10 +42,12 @@ RTSYS_TEST_OBJS := test-rtplf.o test-rtfifo.o test-rthsm.o
 
 # Standard targets
 
-all: librtsys.a librttest.a rttest_unit_tests rtsys_unit_tests
+all: librtsys.a librttest.a rttest_unit_tests rtsys_unit_tests doc
+
+doc: $(BUILDDIR)/doc/html/index.html
 
 
-# Rules to build object files, libraries and programs
+# Rules to build object files, libraries, programs, etc.
 
 define RUN_CC_P
 set -eu; \
@@ -111,6 +112,30 @@ rttest_unit_tests: $(RTTEST_TEST_OBJS) $(RTTEST_MAIN_OBJ)
 rtsys_unit_tests: $(RTSYS_TEST_OBJS) $(RTTEST_MAIN_OBJ)
 	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
 
+
+$(BUILDDIR)/doc/html/index.html: $(HDRS)
+ifeq ($(DOXYGEN),)
+	@echo "Doxygen not found, documentation will not be built"
+else
+	@set -eu; \
+	if [ -z "$(DOT)" ]; then \
+		cp $(TOPDIR)/Doxyfile doxy1; \
+	else \
+		cat $(TOPDIR)/Doxyfile | sed -e 's/HAVE_DOT.*/HAVE_DOT = YES/' > doxy1;\
+	fi; \
+	cat doxy1 | sed -e 's:INPUT[	 ]*=.*:INPUT = $^:' > doxy2; \
+	cmd="doxygen doxy3"; \
+	if [ $(V) == 1 ]; then \
+		cp doxy2 doxy3; \
+		echo "$$cmd"; \
+	else \
+		cat doxy2 | sed -e 's/QUIET.*/QUIET = YES/' > doxy3; \
+		echo "DOXY  $@"; \
+	fi; \
+	$$cmd
+endif
+
+
 lib%.a:
 	@$(call RUN_AR,$@,$^)
 
@@ -120,3 +145,4 @@ lib%.a:
 dbg:
 	@echo "Platform = $(PLF)"
 	@echo "VPATH = $(VPATH)"
+	@echo "HDRS = $(HDRS)"

@@ -64,8 +64,8 @@ ifneq ($(count1),$(count2))
 $(error Duplicate source file names detected)
 endif
 
-all install:
-	@mkdir -p $(BUILDDIR) && $(MAKE) -C $(BUILDDIR) -f $(TOPDIR)/make.mk
+all install doc dbg:
+	@mkdir -p $(BUILDDIR) && $(MAKE) -C $(BUILDDIR) -f $(TOPDIR)/make.mk $@
 
 # TODO: run_unit_tests.py can be improved
 test: all
