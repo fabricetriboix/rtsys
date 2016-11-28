@@ -197,3 +197,21 @@ dbg:
 	@echo "Platform = $(PLF)"
 	@echo "VPATH = $(VPATH)"
 	@echo "HDRS = $(HDRS)"
+
+
+# Automatic header dependencies
+
+OBJS := $(LIBRTSYS_OBJS) $(LIBRTTEST_OBJS) $(RTTEST_MAIN_OBJ) \
+		$(RTTEST_TEST_OBJS) $(RTSYS_TEST_OBJS)
+
+-include $(OBJS:.o=.d)
+
+%.d: %.c
+	@set -eu; \
+	cmd="$(CC) $(CFLAGS) $(INCS) -MT $(@:.d=.o) -MM -MF $@ $<"; \
+	if [ $(D) == 1 ]; then \
+		echo "$$cmd"; \
+	else \
+		echo "DEP   $@"; \
+	fi; \
+	$$cmd
