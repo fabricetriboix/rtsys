@@ -27,7 +27,7 @@ MODULES := $(TOPDIR)/src/rtplf/$(PLF) $(TOPDIR)/src/rtfifo $(TOPDIR)/src/rthsm \
 VPATH := $(foreach i,$(MODULES),$(i)/src) $(foreach i,$(MODULES),$(i)/test)
 
 # Output libraries
-LIBS := librtsys.a librttest.a
+OUTPUT_LIBS := librtsys.a librttest.a
 
 # Include paths for compilation
 INCS := $(foreach i,$(MODULES),-I$(i)/include)
@@ -47,7 +47,7 @@ RTSYS_TEST_OBJS := test-rtplf.o test-rtfifo.o test-rthsm.o
 
 all: librtsys.a librttest.a rttest_unit_tests rtsys_unit_tests doc
 
-doc: $(BUILDDIR)/doc/html/index.html
+doc: doc/html/index.html
 
 
 # Rules to build object files, libraries, programs, etc.
@@ -109,14 +109,14 @@ librtsys.a: $(LIBRTSYS_OBJS)
 
 librttest.a: $(LIBRTTEST_OBJS)
 
-rttest_unit_tests: $(RTTEST_TEST_OBJS) $(RTTEST_MAIN_OBJ) $(LIBS)
+rttest_unit_tests: $(RTTEST_TEST_OBJS) $(RTTEST_MAIN_OBJ) $(OUTPUT_LIBS)
 	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
 
-rtsys_unit_tests: $(RTSYS_TEST_OBJS) $(RTTEST_MAIN_OBJ) $(LIBS)
+rtsys_unit_tests: $(RTSYS_TEST_OBJS) $(RTTEST_MAIN_OBJ) $(OUTPUT_LIBS)
 	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
 
 
-$(BUILDDIR)/doc/html/index.html: $(HDRS)
+doc/html/index.html: $(HDRS)
 ifeq ($(DOXYGEN),)
 	@echo "Doxygen not found, documentation will not be built"
 else
@@ -156,6 +156,35 @@ test_rtsys: rtsys_unit_tests
 	./$< > rtsys.rtt; \
 	find $(TOPDIR) -name 'test-*.c' \
 		| xargs $(TOPDIR)/src/rttest/scripts/rttest2text.py rtsys.rtt
+
+
+define INSTALL
+set -eu; \
+[ -x $(1) ] && mode=755 || mode=644; \
+dst=$(2)/`basename $(1)`; \
+cmd="mkdir -p `dirname $$dst` && cp -rf $(1) $$dst && chmod $$mode $$dst"; \
+if [ $(D) == 1 ]; then \
+	echo "$$cmd"; \
+else \
+	echo "INST  $(1)"; \
+fi; \
+eval $$cmd;
+endef
+
+
+install: install_bin install_lib install_inc install_doc
+
+install_bin:
+	@$(call INSTALL,$(TOPDIR)/src/rttest/scripts/rttest2text.py,$(BINDIR))
+
+install_lib: $(OUTPUT_LIBS)
+	@$(foreach i,$^,$(call INSTALL,$(i),$(LIBDIR)))
+
+install_inc:
+	@$(foreach i,$(HDRS),$(call INSTALL,$(i),$(INCDIR)))
+
+install_doc: doc
+	@$(call INSTALL,doc/html,$(DOCDIR))
 
 
 lib%.a:

@@ -45,6 +45,15 @@ endif
 # Pendantic flags
 CFLAGS_P = $(CFLAGS) -Wpedantic -pedantic-errors
 
+# Default installation PREFIX
+PREFIX := /usr/local
+
+# Installation directories
+BINDIR := $(PREFIX)/bin
+LIBDIR := $(PREFIX)/lib
+INCDIR := $(PREFIX)/include
+DOCDIR := $(PREFIX)/doc/rtsys
+
 ###  END CONFIGURATION PARAMETERS  ###
 
 
@@ -64,7 +73,7 @@ ifneq ($(count1),$(count2))
 $(error Duplicate source file names detected)
 endif
 
-all doc test dbg:
+all doc test install dbg:
 	@mkdir -p $(BUILDDIR) && $(MAKE) -C $(BUILDDIR) -f $(TOPDIR)/make.mk $@
 
 clean:
