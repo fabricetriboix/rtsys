@@ -21,11 +21,8 @@ Even an 8-bit PIC should be able to run it.
 Getting started
 ---------------
 
-    $ scons --help
-    $ scons --mkdoc -j4    # Build
-    $ ./run_unit_tests.py  # Run the unit tests
-    $ ./install.py --help
-    $ ./install.py
+    $ vim Makefile  # Adjust your settings
+    $ make V=release PREFIX=/usr/local test install  # Build, test and install
 
 Read the doxygen documentation to learn how to use rtsys.
 
