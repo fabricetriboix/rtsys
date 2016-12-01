@@ -54,7 +54,7 @@ doc: doc/html/index.html
 
 define RUN_CC_P
 set -eu; \
-cmd="$(CC) $(CFLAGS_P) $(INCS) -o $(1) -c $(2)"; \
+cmd="$(CCACHE) $(CC) $(CFLAGS_P) $(INCS) -o $(1) -c $(2)"; \
 if [ $(D) == 1 ]; then \
 	echo "$$cmd"; \
 else \
@@ -65,7 +65,7 @@ endef
 
 define RUN_CC
 set -eu; \
-cmd="$(CC) $(CFLAGS) $(INCS) -o $(1) -c $(2)"; \
+cmd="$(CCACHE) $(CC) $(CFLAGS) $(INCS) -o $(1) -c $(2)"; \
 if [ $(D) == 1 ]; then \
 	echo "$$cmd"; \
 else \
