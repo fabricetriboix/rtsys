@@ -21,8 +21,14 @@ Even an 8-bit PIC should be able to run it.
 Getting started
 ---------------
 
-    $ vim Makefile  # Adjust your settings
-    $ make V=release PREFIX=/usr/local test install  # Build, test and install
+    $ vim Makefile                    # Adjust your settings
+    $ make test                       # Build and test
+    $ make install PREFIX=/usr/local  # Install into PREFIX
+
+The Makefile will use ccache if available. You can disable it by adding
+`CCACHE=` on the command line, like so:
+
+    $ make test CCACHE=
 
 Read the doxygen documentation to learn how to use rtsys.
 
