@@ -53,13 +53,12 @@ typedef int8_t (*RTPrivTestCase)(void);
 
 
 /** Structure that defines a test group */
-struct RTPrivTestGroup
-{
-    struct RTPrivTestGroup* next; /**< Pointer to next test group, or NULL if this is the last group */
-    uint32_t         id;          /**< Unique identifier for this test group */
-    RTPrivTestAction entryAction; /**< Entry action, or NULL if no action */
-    RTPrivTestAction exitAction;  /**< Exit action, or NULL if no action */
-    RTPrivTestCase*  testCases;   /**< NULL-terminated array of test cases */
+struct RTTestGroup {
+    struct RTTestGroup* next; /**< Pointer to next test group, or NULL if this is the last group */
+    uint32_t            id;          /**< Unique id for this test group */
+    RTPrivTestAction    entryAction; /**< Entry action, or NULL if no action */
+    RTPrivTestAction    exitAction;  /**< Exit action, or NULL if no action */
+    RTPrivTestCase*     testCases;   /**< NULL-terminated array of test cases */
 };
 
 
@@ -71,7 +70,7 @@ struct RTPrivTestGroup
 
 #define RTTPRIV_GROUP_START(_name, _id, _entry, _exit) \
     extern RTPrivTestCase RTTC##_name[]; \
-    static struct RTPrivTestGroup RTTG##_name = { \
+    static struct RTTestGroup RTTG##_name = { \
         NULL, \
         (_id), \
         (_entry), \
@@ -126,7 +125,7 @@ struct RTPrivTestGroup
  * @param group [in] Group to register; must not be NULL. `group->mId` must be
  *                   different from all the other groups already registered.
  */
-void RTPrivTestRegisterGroup(struct RTPrivTestGroup* group);
+void RTPrivTestRegisterGroup(struct RTTestGroup* group);
 
 
 

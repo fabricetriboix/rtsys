@@ -359,7 +359,7 @@ static void rthsmDoSelfTransition(RTHsm* hsm,
      * entry actions of the state.
      */
     if (    !(transition->flags & RTHSM_TRANSITION_FLAG_INTERNAL)
-         && (hsm->current->exitAction != NULL) ) {
+         && (hsm->current->exitAction != NULL)) {
         hsm->current->exitAction(hsm->current->cookie);
     }
 
@@ -368,7 +368,7 @@ static void rthsmDoSelfTransition(RTHsm* hsm,
     }
 
     if (    !(transition->flags & RTHSM_TRANSITION_FLAG_INTERNAL)
-         && (hsm->current->entryAction != NULL) ) {
+         && (hsm->current->entryAction != NULL)) {
         hsm->current->entryAction(hsm->current->cookie);
     }
 }
@@ -395,8 +395,7 @@ static void rthsmDoTransition(RTHsm* hsm,
     dstParentsCount = 1;
     while (dstParents[dstParentsCount - 1] != hsm->global) {
         RTASSERT(dstParentsCount <= RTHSM_MAX_NESTED_STATES);
-
-        dstParents[dstParentsCount] = dstParents[dstParentsCount - 1]->parent;
+        dstParents[dstParentsCount] = dstParents[dstParentsCount-1]->parent;
         dstParentsCount++;
     }
 

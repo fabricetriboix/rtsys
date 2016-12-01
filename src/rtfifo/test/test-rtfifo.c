@@ -19,8 +19,7 @@
 #include "rtplf.h"
 
 
-typedef struct
-{
+typedef struct {
     uint16_t a;
     int8_t b;
 } TSmallItem;
@@ -219,8 +218,7 @@ RTT_GROUP_END(TestSmallFifo,
         smallfifo_should_be_empty_when_emptied)
 
 
-typedef struct
-{
+typedef struct {
     uint32_t a;
     int32_t b;
     RTByte stuff[300];

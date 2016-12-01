@@ -117,8 +117,7 @@ uint16_t RTU32ToString(uint32_t x, RTBase base, char* buffer, uint16_t size)
 
     if ((buffer != NULL) && (size > 0)) {
         int n;
-        switch (base)
-        {
+        switch (base) {
         case RTBASE_2 :
             n = rtplfPrintBase2(x, tmp, size);
             break;
@@ -190,8 +189,7 @@ RTBool RTStringToU32(const char* str, RTBase base, uint32_t* x)
             }
         }
 
-        switch (base)
-        {
+        switch (base) {
         case RTBASE_2 :
             n = rtplfScanBase2(start, x);
             if (n == 1) {
@@ -402,8 +400,7 @@ static RTBool rtplfScanBase2(const char* str, uint32_t* x)
         }
 
         for (i = 0; (i < len) && parsing; i++) {
-            switch (str[i])
-            {
+            switch (str[i]) {
             case '0' :
                 if (parsing) {
                     tmp <<= 1;

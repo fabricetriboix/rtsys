@@ -153,16 +153,14 @@ typedef uint8_t RTByte;
 
 
 /** Boolean */
-typedef enum
-{
+typedef enum {
     RTFalse = 0,
     RTTrue = 1
 } RTBool;
 
 
 /** Numerical bases */
-typedef enum
-{
+typedef enum {
     RTBASE_AUTO,
     RTBASE_2,
     RTBASE_8,
@@ -383,6 +381,7 @@ int8_t RTStrcmp(const char* str1, const char* str2);
  * @return -1 if `str1` < `str2`, 0 if `str1` == `str2`, +1 if `str1` > `str2`
  */
 int8_t RTStrncmp(const char* str1, const char* str2, uint16_t size);
+
 
 
 #endif /* RTPLF_X64_LINUX_h_ */

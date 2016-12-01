@@ -29,8 +29,7 @@
 
 
 /** Small FIFO structure */
-struct RTPrivSmallFifo
-{
+struct RTSmallFifo {
     uint8_t head;       /**< Head of the FIFO */
     uint8_t tail;       /**< Tail of the FIFO */
     uint8_t size;       /**< Size of the FIFO, in items */
@@ -53,8 +52,7 @@ struct RTPrivSmallFifo
 
 
 /** Regular FIFO structure */
-struct RTPrivFifo
-{
+struct RTFifo {
     uint16_t head;       /**< Head of the FIFO */
     uint16_t tail;       /**< Tail of the FIFO */
     uint16_t size;       /**< Size of the FIFO, in items */
@@ -74,6 +72,7 @@ struct RTPrivFifo
         sizeof((_buffer)[0]),       \
         (RTByte*)(_buffer)          \
     }
+
 
 
 #endif /* RTFIFO_PRIV_h_ */
