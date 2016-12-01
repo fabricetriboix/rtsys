@@ -45,7 +45,7 @@ RTSYS_TEST_OBJS = test-rtplf.o test-rtfifo.o test-rthsm.o
 
 # Standard targets
 
-all: librtsys.a librttest.a rttest_unit_tests rtsys_unit_tests doc
+all: $(OUTPUT_LIBS) rttest_unit_tests rtsys_unit_tests doc
 
 doc: doc/html/index.html
 
