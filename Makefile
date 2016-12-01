@@ -23,9 +23,9 @@
 # Set D to 1 to increase verbosity
 D = 0
 
-# Set V to "release" to make a release build
-# Supported variants: "debug" (default) and "release"
-V = debug
+# Set V to "debug" to make a debug build
+# Supported variants: "debug" and "release" (default)
+V = release
 
 # Set PLF to the platform you want to build to
 # This must be one of the platform directory listed under "src/rtplf"
@@ -79,5 +79,6 @@ all doc test install dbg:
 clean:
 	rm -rf $(BUILDDIR)
 
+# Helper targets
 debug release:
 	@$(MAKE) -C . V=$@ all
