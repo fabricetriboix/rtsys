@@ -110,10 +110,10 @@ librtsys.a: $(LIBRTSYS_OBJS)
 librttest.a: $(LIBRTTEST_OBJS)
 
 rttest_unit_tests: $(RTTEST_TEST_OBJS) $(RTTEST_MAIN_OBJ) $(OUTPUT_LIBS)
-	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
+	@$(call RUN_LINK,$@,$(filter %.o,$^),-lrttest -lrtsys)
 
 rtsys_unit_tests: $(RTSYS_TEST_OBJS) $(RTTEST_MAIN_OBJ) $(OUTPUT_LIBS)
-	@$(call RUN_LINK,$@,$^,-lrttest -lrtsys)
+	@$(call RUN_LINK,$@,$(filter %.o,$^),-lrttest -lrtsys)
 
 
 doc/html/index.html: $(HDRS)
