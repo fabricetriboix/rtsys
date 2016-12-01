@@ -46,13 +46,13 @@ endif
 CFLAGS_P = $(CFLAGS) -Wpedantic -pedantic-errors
 
 # Default installation PREFIX
-PREFIX := /usr/local
+PREFIX = /usr/local
 
 # Installation directories
-BINDIR := $(PREFIX)/bin
-LIBDIR := $(PREFIX)/lib
-INCDIR := $(PREFIX)/include
-DOCDIR := $(PREFIX)/doc/rtsys
+BINDIR = $(PREFIX)/bin
+LIBDIR = $(PREFIX)/lib
+INCDIR = $(PREFIX)/include
+DOCDIR = $(PREFIX)/doc/rtsys
 
 ###  END CONFIGURATION PARAMETERS  ###
 
@@ -60,8 +60,8 @@ DOCDIR := $(PREFIX)/doc/rtsys
 
 ###  DO NOT MODIFY ANYTHIG BELOW THIS LINE  ###
 
-BUILDDIR := build/$(PLF)/$(V)
-TOPDIR := ../../..
+BUILDDIR = build/$(PLF)/$(V)
+TOPDIR = ../../..
 
 # Export all variables
 export

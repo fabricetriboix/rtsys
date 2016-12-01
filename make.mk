@@ -20,27 +20,27 @@ CCACHE := $(shell which ccache 2> /dev/null)
 DOXYGEN := $(shell which doxygen 2> /dev/null)
 DOT := $(shell which dot 2> /dev/null)
 
-MODULES := $(TOPDIR)/src/rtplf/$(PLF) $(TOPDIR)/src/rtfifo $(TOPDIR)/src/rthsm \
+MODULES = $(TOPDIR)/src/rtplf/$(PLF) $(TOPDIR)/src/rtfifo $(TOPDIR)/src/rthsm \
            $(TOPDIR)/src/rttest
 
 # Path for make to search for source files
-VPATH := $(foreach i,$(MODULES),$(i)/src) $(foreach i,$(MODULES),$(i)/test)
+VPATH = $(foreach i,$(MODULES),$(i)/src) $(foreach i,$(MODULES),$(i)/test)
 
 # Output libraries
-OUTPUT_LIBS := librtsys.a librttest.a
+OUTPUT_LIBS = librtsys.a librttest.a
 
 # Include paths for compilation
-INCS := $(foreach i,$(MODULES),-I$(i)/include)
+INCS = $(foreach i,$(MODULES),-I$(i)/include)
 
 # List public header files
-HDRS := $(foreach i,$(MODULES),$(wildcard $(i)/include/*.h))
+HDRS = $(foreach i,$(MODULES),$(wildcard $(i)/include/*.h))
 
 # List of object files for various targets
-LIBRTSYS_OBJS := rtplf.o rtfifo.o rthsm.o
-LIBRTTEST_OBJS := rttest.o
-RTTEST_MAIN_OBJ := rttestmain.o
-RTTEST_TEST_OBJS := unittest1.o unittest2.o testme.o
-RTSYS_TEST_OBJS := test-rtplf.o test-rtfifo.o test-rthsm.o
+LIBRTSYS_OBJS = rtplf.o rtfifo.o rthsm.o
+LIBRTTEST_OBJS = rttest.o
+RTTEST_MAIN_OBJ = rttestmain.o
+RTTEST_TEST_OBJS = unittest1.o unittest2.o testme.o
+RTSYS_TEST_OBJS = test-rtplf.o test-rtfifo.o test-rthsm.o
 
 
 # Standard targets
@@ -201,7 +201,7 @@ dbg:
 
 # Automatic header dependencies
 
-OBJS := $(LIBRTSYS_OBJS) $(LIBRTTEST_OBJS) $(RTTEST_MAIN_OBJ) \
+OBJS = $(LIBRTSYS_OBJS) $(LIBRTTEST_OBJS) $(RTTEST_MAIN_OBJ) \
 		$(RTTEST_TEST_OBJS) $(RTSYS_TEST_OBJS)
 
 -include $(OBJS:.o=.d)
