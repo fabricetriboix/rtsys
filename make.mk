@@ -60,7 +60,7 @@ if [ $(D) == 1 ]; then \
 else \
 	echo "CC_P  $(1)"; \
 fi; \
-$$cmd
+$$cmd || (echo "Command line was: $$cmd"; exit 1)
 endef
 
 define RUN_CC
@@ -71,7 +71,7 @@ if [ $(D) == 1 ]; then \
 else \
 	echo "CC    $(1)"; \
 fi; \
-$$cmd
+$$cmd || (echo "Command line was: $$cmd"; exit 1)
 endef
 
 define RUN_AR
@@ -82,7 +82,7 @@ if [ $(D) == 1 ]; then \
 else \
 	echo "AR    $(1)"; \
 fi; \
-$$cmd
+$$cmd || (echo "Command line was: $$cmd"; exit 1)
 endef
 
 define RUN_LINK
@@ -93,7 +93,7 @@ if [ $(D) == 1 ]; then \
 else \
 	echo "LINK  $(1)"; \
 fi; \
-$$cmd
+$$cmd || (echo "Command line was: $$cmd"; exit 1)
 endef
 
 rtplf.o: rtplf.c
