@@ -166,7 +166,7 @@ cmd="mkdir -p `dirname $$dst` && cp -rf $(1) $$dst && chmod $$mode $$dst"; \
 if [ $(D) == 1 ]; then \
 	echo "$$cmd"; \
 else \
-	echo "INST  $(1)"; \
+	echo "INST  `basename $(1)`"; \
 fi; \
 eval $$cmd;
 endef
