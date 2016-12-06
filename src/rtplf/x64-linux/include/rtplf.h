@@ -16,8 +16,8 @@
 
 /** Platform-dependent stuff
  *
- * \defgroup rtplf_x64_linux Platform x64-linux
- * \addtogroup rtplf_x64_linux
+ * @defgroup rtplf_x64_linux Platform x64-linux
+ * @addtogroup rtplf_x64_linux
  * @{
  *
  * Types and definitions specific to the 'x64-linux' architecture. You are
@@ -96,7 +96,7 @@
  * Please refer to the introductory blurb at the beginning of this module for
  * more information.
  *
- * \return This function does not return
+ * @return This function does not return
  */
 void RTPanic(void);
 
@@ -153,16 +153,14 @@ typedef uint8_t RTByte;
 
 
 /** Boolean */
-typedef enum
-{
+typedef enum {
     RTFalse = 0,
     RTTrue = 1
 } RTBool;
 
 
 /** Numerical bases */
-typedef enum
-{
+typedef enum {
     RTBASE_AUTO,
     RTBASE_2,
     RTBASE_8,
@@ -183,14 +181,14 @@ typedef enum
  * Ticks can be whatever your hardware provides, provided that the tick
  * frequency is stable.
  *
- * \return Current timestamp, in ticks
+ * @return Current timestamp, in ticks
  */
 uint32_t RTNow_tick(void);
 
 
 /** Get the tick frequency
  *
- * \return Tick frequency, in Hz
+ * @return Tick frequency, in Hz
  */
 uint32_t RTTickFrequency_Hz(void);
 
@@ -199,7 +197,7 @@ uint32_t RTTickFrequency_Hz(void);
  *
  * This function might be less accurate than `RTNow_tick()`.
  *
- * \return Current timestamp, in us
+ * @return Current timestamp, in us
  */
 uint32_t RTNow_us(void);
 
@@ -211,15 +209,15 @@ uint32_t RTNow_us(void);
  *
  * This function will assert if one (or more) of its argument is invalid.
  *
- * \param x      [in]  The integer to convert
- * \param buffer [out] Where to write the string. This argument is allowed to be
+ * @param x      [in]  The integer to convert
+ * @param buffer [out] Where to write the string. This argument is allowed to be
  *                     NULL, in which case no action is taken and this function
  *                     returns 0.
- * \param size   [in]  Size of the above buffer, in char. This argument is
+ * @param size   [in]  Size of the above buffer, in char. This argument is
  *                     allowed to be 0, in which case no action is taken and
  *                     this function returns 0.
  *
- * \return The number of characters written, excluding the terminating null
+ * @return The number of characters written, excluding the terminating null
  *         character
  */
 uint16_t RT32ToString(int32_t x, char* buffer, uint16_t size);
@@ -232,17 +230,17 @@ uint16_t RT32ToString(int32_t x, char* buffer, uint16_t size);
  *
  * This function will assert if one (or more) of its argument is invalid.
  *
- * \param x      [in]  The integer to convert
- * \param base   [in]  The numerical base to use; if set to `RTBASE_AUTO`, base
+ * @param x      [in]  The integer to convert
+ * @param base   [in]  The numerical base to use; if set to `RTBASE_AUTO`, base
  *                     10 will be used
- * \param buffer [out] Where to write the string. This argument is allowed to be
+ * @param buffer [out] Where to write the string. This argument is allowed to be
  *                     NULL, in which case no action is taken and this function
  *                     returns 0;
- * \param size   [in]  Size of the above buffer, in char. This argument is
+ * @param size   [in]  Size of the above buffer, in char. This argument is
  *                     allowed to be 0, in which case no action is taken and
  *                     this function returns 0;
  *
- * \return The number of characters written, excluding the terminating null
+ * @return The number of characters written, excluding the terminating null
  *         character
  */
 uint16_t RTU32ToString(uint32_t x, RTBase base, char* buffer, uint16_t size);
@@ -256,14 +254,14 @@ uint16_t RTU32ToString(uint32_t x, RTBase base, char* buffer, uint16_t size);
  *
  * This function will assert if one (or more) of its argument is invalid.
  *
- * \param str [in]  The string to parse. This argument is allowed to be NULL, in
+ * @param str [in]  The string to parse. This argument is allowed to be NULL, in
  *                  which case no action is taken and this function returns
  *                  `RTFalse`.
- * \param x   [out] The parsed integer. This argument is allowed to be NULL, in
+ * @param x   [out] The parsed integer. This argument is allowed to be NULL, in
  *                  which case no action is taken and this function returns
  *                  `RTTrue`.
  *
- * \return `RTTrue` if integer successfully parsed, `RTFalse` otherwise
+ * @return `RTTrue` if integer successfully parsed, `RTFalse` otherwise
  */
 RTBool RTStringTo32(const char* str, int32_t* x);
 
@@ -276,10 +274,10 @@ RTBool RTStringTo32(const char* str, int32_t* x);
  *
  * This function will assert if one (or more) of its argument is invalid.
  *
- * \param str  [in]  The string to parse. This argument is allowed to be NULL,
+ * @param str  [in]  The string to parse. This argument is allowed to be NULL,
  *                   in which case no action is taken and this function returns
  *                   `RTFalse`.
- * \param base [in]  The numerical base to use. If set to `RTBASE_AUTO`, the
+ * @param base [in]  The numerical base to use. If set to `RTBASE_AUTO`, the
  *                   base to use is inferred from the first few characters of
  *                   the string:
  *                     - If the string starts with "0x" or "0X", base 16 is used
@@ -287,11 +285,11 @@ RTBool RTStringTo32(const char* str, int32_t* x);
  *                       digit, base 8 is used
  *                     - If the string starts with 'b' or 'B', base 2 is used
  *                     - In any other case, base 10 is used
- * \param x    [out] The parsed integer. This argument is allowed to be NULL, in
+ * @param x    [out] The parsed integer. This argument is allowed to be NULL, in
  *                   which case no action is taken and this function returns
  *                   `RTTrue`.
  *
- * \return `RTTrue` if integer successfully parsed, `RTFalse` otherwise
+ * @return `RTTrue` if integer successfully parsed, `RTFalse` otherwise
  */
 RTBool RTStringToU32(const char* str, RTBase base, uint32_t* x);
 
@@ -302,13 +300,13 @@ RTBool RTStringToU32(const char* str, RTBase base, uint32_t* x);
  * not overlap (if they do, the behaviour of this function is undefined).
  * The number of bytes copied is the lower of `srcSize_B` or `dstSize_B`.
  *
- * \param dst       [out] Where to copy the data. This argument is allowed to be
+ * @param dst       [out] Where to copy the data. This argument is allowed to be
  *                        NULL, in which case no action is taken.
- * \param dstSize_B [in]  Size of the `dst` buffer, in bytes. This argument is
+ * @param dstSize_B [in]  Size of the `dst` buffer, in bytes. This argument is
  *                        allowed to be 0, in which case no action is taken.
- * \param src       [in]  Data source. This argument is allowed to be NULL, in
+ * @param src       [in]  Data source. This argument is allowed to be NULL, in
  *                        which case no action is taken.
- * \param srcSize_B [in]  Size of the `src` buffer, in bytes. This argument is
+ * @param srcSize_B [in]  Size of the `src` buffer, in bytes. This argument is
  *                        allowed to be 0, in which case no action is taken.
  */
 void RTMemcpy(RTByte* dst, uint16_t dstSize_B,
@@ -320,10 +318,10 @@ void RTMemcpy(RTByte* dst, uint16_t dstSize_B,
  * The length of a string is the number of characters until the null character.
  * For example: for 'f', 'o', 'o', '\0', the function must return 3.
  *
- * \param str [in] The string to query. This argument is allowed to be NULL, in
+ * @param str [in] The string to query. This argument is allowed to be NULL, in
  *                 which case this function returns 0.
  *
- * \return The length of the string, excluding the null terminating character
+ * @return The length of the string, excluding the null terminating character
  */
 uint16_t RTStrlen(const char* str);
 
@@ -332,22 +330,22 @@ uint16_t RTStrlen(const char* str);
  *
  * The string copy will always be null-terminated, even if truncated.
  *
- * \param dst     [out] Where to write the copied string. This argument is
+ * @param dst     [out] Where to write the copied string. This argument is
  *                      allowed to be NULL, in which case no action is taken,
  *                      and this function returns `RTTrue` if `src` is also
  *                      NULL, and `RTFalse` otherwise.
- * \param dstSize [in]  Size of the `dst` buffer, in char. This argument is
+ * @param dstSize [in]  Size of the `dst` buffer, in char. This argument is
  *                      allowed to be 0, in which case this function behaves
  *                      like `dst` was set to NULL. At most `dstSize` characters
  *                      are copied into `dst`, including the terminating null
  *                      character. The `src` string will only be partially
  *                      copied if it is too long.
- * \param src     [in]  The string to copy. This argument is allowed to be NULL,
+ * @param src     [in]  The string to copy. This argument is allowed to be NULL,
  *                      in which case `dst` is set to the empty string ""
  *                      (provided that it is itself not NULL and that `dstSize`
  *                      is > 0), and this function returns `RTTrue`.
  *
- * \return `RTTrue` if the string has been entirely copied, `RTFalse` if it has
+ * @return `RTTrue` if the string has been entirely copied, `RTFalse` if it has
  *         been truncated
  */
 RTBool RTStrncpy(char* dst, uint16_t dstSize, const char* src);
@@ -355,34 +353,35 @@ RTBool RTStrncpy(char* dst, uint16_t dstSize, const char* src);
 
 /** Compare 2 strings
  *
- * \param str1 [in] The first string to compare. This argument is allowed to be
+ * @param str1 [in] The first string to compare. This argument is allowed to be
  *                  NULL, in which case no action is taken and this function
  *                  returns 0 if `str2` is also NULL, and -1 otherwise.
- * \param str2 [in] The second string to compare. This argument is allowed to be
+ * @param str2 [in] The second string to compare. This argument is allowed to be
  *                  NULL, in which case no action is taken and this function
  *                  returns 0 if `str` is also NULL, and 1 otherwise.
  *
- * \return -1 if `str1` < `str2`, 0 if `str1` == `str2`, +1 if `str1` > `str2`
+ * @return -1 if `str1` < `str2`, 0 if `str1` == `str2`, +1 if `str1` > `str2`
  */
 int8_t RTStrcmp(const char* str1, const char* str2);
 
 
 /** Compare the first `n` characters of 2 strings
  *
- * \param str1 [in] The first string to compare. This argument is allowed to be
+ * @param str1 [in] The first string to compare. This argument is allowed to be
  *                  NULL, in which case no action is taken and this function
  *                  returns 0 if `str2` is also NULL, and -1 otherwise.
- * \param str2 [in] The second string to compare. This argument is allowed to be
+ * @param str2 [in] The second string to compare. This argument is allowed to be
  *                  NULL, in which case no action is taken and this function
  *                  returns 0 if `str` is also NULL, and 1 otherwise.
- * \param size [in] The number of characters to compare, not including the
+ * @param size [in] The number of characters to compare, not including the
  *                  terminating null character. This argument is allowed to be
  *                  0, in which case no action is taken and this function
  *                  returns 0.
  *
- * \return -1 if `str1` < `str2`, 0 if `str1` == `str2`, +1 if `str1` > `str2`
+ * @return -1 if `str1` < `str2`, 0 if `str1` == `str2`, +1 if `str1` > `str2`
  */
 int8_t RTStrncmp(const char* str1, const char* str2, uint16_t size);
+
 
 
 #endif /* RTPLF_X64_LINUX_h_ */

@@ -37,13 +37,13 @@
  *
  * No prefix is printed.
  *
- * \param x      [in]  The 32-bit unsigned integer to print
- * \param buffer [out] Where to print. This argument must not be NULL. The
+ * @param x      [in]  The 32-bit unsigned integer to print
+ * @param buffer [out] Where to print. This argument must not be NULL. The
  *                     string will always be null-terminated.
- * \param size   [in]  Size of the above buffer, in char; must be > 0. If the
+ * @param size   [in]  Size of the above buffer, in char; must be > 0. If the
  *                     size is not enough, the string will be truncated.
  *
- * \return The number of characters written, not including the terminating null
+ * @return The number of characters written, not including the terminating null
  *         character; if the string has been truncated, the return value will
  *         be the number of characters that would have been written if the
  *         buffer was big enough.
@@ -53,10 +53,10 @@ static int rtplfPrintBase2(uint32_t x, char* buffer, uint16_t size);
 
 /** Scan a 32-bit unsigned integer in base 2
  *
- * \param str [in]  The string to parse; must not be NULL
- * \param x   [out] The parsed integer
+ * @param str [in]  The string to parse; must not be NULL
+ * @param x   [out] The parsed integer
  *
- * \return `RTTrue` if successfully parsed, `RTFalse` otherwise
+ * @return `RTTrue` if successfully parsed, `RTFalse` otherwise
  */
 static RTBool rtplfScanBase2(const char* str, uint32_t* x);
 
@@ -117,8 +117,7 @@ uint16_t RTU32ToString(uint32_t x, RTBase base, char* buffer, uint16_t size)
 
     if ((buffer != NULL) && (size > 0)) {
         int n;
-        switch (base)
-        {
+        switch (base) {
         case RTBASE_2 :
             n = rtplfPrintBase2(x, tmp, size);
             break;
@@ -190,8 +189,7 @@ RTBool RTStringToU32(const char* str, RTBase base, uint32_t* x)
             }
         }
 
-        switch (base)
-        {
+        switch (base) {
         case RTBASE_2 :
             n = rtplfScanBase2(start, x);
             if (n == 1) {
@@ -402,8 +400,7 @@ static RTBool rtplfScanBase2(const char* str, uint32_t* x)
         }
 
         for (i = 0; (i < len) && parsing; i++) {
-            switch (str[i])
-            {
+            switch (str[i]) {
             case '0' :
                 if (parsing) {
                     tmp <<= 1;

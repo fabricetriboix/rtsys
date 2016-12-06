@@ -26,7 +26,7 @@
  +------------------*/
 
 
-static struct RTPrivTestGroup* gFirstGroup = NULL;
+static RTTestGroup* gFirstGroup = NULL;
 
 
 
@@ -37,19 +37,19 @@ static struct RTPrivTestGroup* gFirstGroup = NULL;
 
 /** Write the test results preamble
  *
- * \param wrOctet [in] Function to output an octet; must not be NULL
+ * @param wrOctet [in] Function to output an octet; must not be NULL
  *
- * \return 0 if OK, -1 if invalid argument, -2 if a call to `wrOctet()` failed
+ * @return 0 if OK, -1 if invalid argument, -2 if a call to `wrOctet()` failed
  */
 static int32_t rttestWritePreamble(RTTestWriteOctet wrOctet);
 
 
 /** Check if the given number is in the given set
  *
- * \param x    [in] The number to check
- * \param set  [in] The set to check. `set` may be NULL, in which case `x` is
+ * @param x    [in] The number to check
+ * @param set  [in] The set to check. `set` may be NULL, in which case `x` is
  *                  considered to be in it.
- * \param size [in] Size of the `set` array. `size` may be 0, in which case `x`
+ * @param size [in] Size of the `set` array. `size` may be 0, in which case `x`
  *                  is considered to be in the `set`.
  */
 static RTBool rttestIsIn(uint32_t x, const uint32_t* set, uint16_t size);
@@ -60,24 +60,24 @@ static RTBool rttestIsIn(uint32_t x, const uint32_t* set, uint16_t size);
  * If a test case asserts, the execution of the test cases is immediately
  * stopped, and all remaining test cases are considered to have failed.
  *
- * \param wrOctet [in] Function to output an octet; must not be NULL
- * \param group   [in] The test group to run; must not be NULL
+ * @param wrOctet [in] Function to output an octet; must not be NULL
+ * @param group   [in] The test group to run; must not be NULL
  *
- * \return * The number of failed test cases (0 if all the tests passed)
+ * @return * The number of failed test cases (0 if all the tests passed)
  *         * -1 if a call to `wrOctet()` failed
  *         * -2 if a call to a group entry action failed
  *         * -3 if a call to a group exit action failed
  */
 static int32_t rttestRunGroup(RTTestWriteOctet wrOctet,
-        const struct RTPrivTestGroup* group);
+        const RTTestGroup* group);
 
 
 /** Run the test cases of a test group
  *
- * \param wrOctet [in] Function to output an octet; must not be NULL
- * \param group   [in] The test group to run; must not be NULL
+ * @param wrOctet [in] Function to output an octet; must not be NULL
+ * @param group   [in] The test group to run; must not be NULL
  *
- * \return * The number of failed test cases (0 if all the tests passed)
+ * @return * The number of failed test cases (0 if all the tests passed)
  *         * -1 if a call to `wrOctet()` failed
  *         * -2 if a call to a group entry action failed
  *         * -3 if a call to a group exit action failed
@@ -92,14 +92,14 @@ static int32_t rttestRunTestCases(RTTestWriteOctet wrOctet,
  +---------------------------------*/
 
 
-void RTPrivTestRegisterGroup(struct RTPrivTestGroup* group)
+void RTPrivTestRegisterGroup(RTTestGroup* group)
 {
     RTASSERT(group != NULL);
 
     if (gFirstGroup == NULL) {
         gFirstGroup = group;
     } else {
-        struct RTPrivTestGroup* i;
+        RTTestGroup* i;
         for (i = gFirstGroup; i->next != NULL; i = i->next) {
             RTASSERT(i->id != group->id);
         }
@@ -113,7 +113,7 @@ int32_t RTTestRun(RTTestWriteOctet wrOctet,
         const uint32_t* groups, uint16_t ngroups)
 {
     int32_t ret;
-    struct RTPrivTestGroup* group;
+    RTTestGroup* group;
 
     RTASSERT(wrOctet != NULL);
     RTASSERT(gFirstGroup != NULL);
@@ -181,7 +181,7 @@ static RTBool rttestIsIn(uint32_t x, const uint32_t* set, uint16_t size)
 
 
 static int32_t rttestRunGroup(RTTestWriteOctet wrOctet,
-        const struct RTPrivTestGroup* group)
+        const RTTestGroup* group)
 {
     int32_t ret = 0;
     uint32_t id;

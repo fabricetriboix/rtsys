@@ -16,8 +16,8 @@
 
 /** FIFOs
  *
- * \defgroup rtfifo FIFOs
- * \addtogroup rtfifo
+ * @defgroup rtfifo FIFOs
+ * @addtogroup rtfifo
  * @{
  *
  * FIFOs.
@@ -44,7 +44,7 @@
  * *Important note*: Never access the structure directly! Always use the FIFO
  * functions.
  */
-typedef struct RTPrivSmallFifo RTSmallFifo;
+typedef struct RTSmallFifo RTSmallFifo;
 
 
 /** Macro initialiser for a statically-allocated small FIFO
@@ -73,7 +73,7 @@ typedef struct RTPrivSmallFifo RTSmallFifo;
  * *Important note*: Never access the structure directly! Always use the FIFO
  * functions.
  */
-typedef struct RTPrivFifo RTFifo;
+typedef struct RTFifo RTFifo;
 
 
 /** Macro initialiser for a statically-allocated regular FIFO
@@ -107,11 +107,11 @@ typedef struct RTPrivFifo RTFifo;
  * **DO NOT** call this function on a FIFO that has been already initialised
  * with `RT_SMALL_FIFO_INIT()`!
  *
- * \param fifo       [in,out] FIFO structure to initialise; must not be NULL.
- * \param capacity   [in]     FIFO capacity, in number of items; must be > 0.
- * \param itemSize_B [in]     Size of a single item in the FIFO, in bytes; must
+ * @param fifo       [in,out] FIFO structure to initialise; must not be NULL.
+ * @param capacity   [in]     FIFO capacity, in number of items; must be > 0.
+ * @param itemSize_B [in]     Size of a single item in the FIFO, in bytes; must
  *                            be > 0.
- * \param buffer     [in]     Where the FIFO items should be stored. `buffer`
+ * @param buffer     [in]     Where the FIFO items should be stored. `buffer`
  *                            must not be NULL and must point to a memory area
  *                            at least `capacity` * `itemSize_B` in size (in
  *                            bytes).
@@ -119,7 +119,7 @@ typedef struct RTPrivFifo RTFifo;
  * The FIFO will then take ownership of the `buffer`, which should then not be
  * accessed by anything else thereafter.
  *
- * \return Nothing
+ * @return Nothing
  */
 void RTSmallFifoInit(RTSmallFifo* fifo, uint8_t capacity,
         uint8_t itemSize_B, RTByte* buffer);
@@ -127,64 +127,64 @@ void RTSmallFifoInit(RTSmallFifo* fifo, uint8_t capacity,
 
 /** Get the size of a small FIFO
  *
- * \param fifo [in] FIFO to query; must not be NULL.
+ * @param fifo [in] FIFO to query; must not be NULL.
  *
- * \return The number of items currently stored in the FIFO
+ * @return The number of items currently stored in the FIFO
  */
 uint8_t RTSmallFifoSize(const RTSmallFifo* fifo);
 
 
 /** Get the capacity of a small FIFO
  *
- * \param fifo [in] FIFO to query; must not be NULL.
+ * @param fifo [in] FIFO to query; must not be NULL.
  *
- * \return The maximum number of items the FIFO can hold
+ * @return The maximum number of items the FIFO can hold
  */
 uint8_t RTSmallFifoCapacity(const RTSmallFifo* fifo);
 
 
 /** Test if a small FIFO is empty
  *
- * \param fifo [in] FIFO to query; must not be NULL.
+ * @param fifo [in] FIFO to query; must not be NULL.
  *
- * \return `RTTrue` if the FIFO is empty, `RTFalse` if not
+ * @return `RTTrue` if the FIFO is empty, `RTFalse` if not
  */
 RTBool RTSmallFifoIsEmpty(const RTSmallFifo* fifo);
 
 
 /** Test if a small FIFO is full
  *
- * \param fifo [in] FIFO to query; must not be NULL.
+ * @param fifo [in] FIFO to query; must not be NULL.
  *
- * \return `RTTrue` if the FIFO is full, `RTFalse` if not
+ * @return `RTTrue` if the FIFO is full, `RTFalse` if not
  */
 RTBool RTSmallFifoIsFull(const RTSmallFifo* fifo);
 
 
 /** Push an item into a small FIFO
  *
- * \param fifo       [in,out] FIFO where to push the item; must not be NULL.
- * \param item       [in]     The item to push; must not be NULL. The item
+ * @param fifo       [in,out] FIFO where to push the item; must not be NULL.
+ * @param item       [in]     The item to push; must not be NULL. The item
  *                            itself will be copied, so you retain the ownership
  *                            of the `item`.
- * \param itemSize_B [in]     The size of the `item`, in bytes. `itemSize_B`
+ * @param itemSize_B [in]     The size of the `item`, in bytes. `itemSize_B`
  *                            must be > 0 and <= the size of FIFO items (as set
  *                            when the FIFO is initialised).
  *
- * \return `RTTrue` if success, `RTFalse` if the FIFO is full
+ * @return `RTTrue` if success, `RTFalse` if the FIFO is full
  */
 RTBool RTSmallFifoPush(RTSmallFifo* fifo, const void* item, uint8_t itemSize_B);
 
 
 /** Pop an item from a small FIFO
  *
- * \param fifo       [in,out] FIFO from where to pop the item; must not be NULL.
- * \param item       [out]    Where to write the popped item; must not be NULL.
- * \param itemSize_B [in]     Size of the `item` buffer, in bytes. `itemSize_B`
+ * @param fifo       [in,out] FIFO from where to pop the item; must not be NULL.
+ * @param item       [out]    Where to write the popped item; must not be NULL.
+ * @param itemSize_B [in]     Size of the `item` buffer, in bytes. `itemSize_B`
  *                            must be >= the size of the FIFO items (as set
  *                            when the FIFO is initialised).
  *
- * \return `RTTrue` if success, `RTFalse` if FIFO is empty
+ * @return `RTTrue` if success, `RTFalse` if FIFO is empty
  */
 RTBool RTSmallFifoPop(RTSmallFifo* fifo, void* item, uint8_t itemSize_B);
 
@@ -197,11 +197,11 @@ RTBool RTSmallFifoPop(RTSmallFifo* fifo, void* item, uint8_t itemSize_B);
  * **DO NOT** call this function on a FIFO that has been already initialised
  * with `RT_FIFO_INIT()`.
  *
- * \param fifo       [in,out] FIFO structure to initialise; must not be NULL.
- * \param capacity   [in]     FIFO capacity, in number of items; must be > 0.
- * \param itemSize_B [in]     Size of a single item in the FIFO, in bytes; must
+ * @param fifo       [in,out] FIFO structure to initialise; must not be NULL.
+ * @param capacity   [in]     FIFO capacity, in number of items; must be > 0.
+ * @param itemSize_B [in]     Size of a single item in the FIFO, in bytes; must
  *                            be > 0.
- * \param buffer     [in]     Where the FIFO items should be stored. `buffer`
+ * @param buffer     [in]     Where the FIFO items should be stored. `buffer`
  *                            must not be NULL and must point to a memory area
  *                            at least `capacity` * `itemSize_B` in size (in
  *                            bytes).
@@ -209,7 +209,7 @@ RTBool RTSmallFifoPop(RTSmallFifo* fifo, void* item, uint8_t itemSize_B);
  * The FIFO will then take ownership of the `buffer`, which should then not be
  * accessed by anything else thereafter.
  *
- * \return Nothing
+ * @return Nothing
  */
 void RTFifoInit(RTFifo* fifo, uint16_t capacity,
         uint16_t itemSize_B, RTByte* buffer);
@@ -217,66 +217,67 @@ void RTFifoInit(RTFifo* fifo, uint16_t capacity,
 
 /** Get the size of a regular FIFO
  *
- * \param fifo [in] FIFO to query; must not be NULL.
+ * @param fifo [in] FIFO to query; must not be NULL.
  *
- * \return The number of items currently stored in the FIFO
+ * @return The number of items currently stored in the FIFO
  */
 uint16_t RTFifoSize(const RTFifo* fifo);
 
 
 /** Get the capacity of a regular FIFO
  *
- * \param fifo [in] FIFO to query; must not be NULL.
+ * @param fifo [in] FIFO to query; must not be NULL.
  *
- * \return The maximum number of items the FIFO can hold
+ * @return The maximum number of items the FIFO can hold
  */
 uint16_t RTFifoCapacity(const RTFifo* fifo);
 
 
 /** Test if a regular FIFO is empty
  *
- * \param fifo [in] FIFO to query; must not be NULL.
+ * @param fifo [in] FIFO to query; must not be NULL.
  *
- * \return `RTTrue` if the FIFO is empty, `RTFalse` if not
+ * @return `RTTrue` if the FIFO is empty, `RTFalse` if not
  */
 RTBool RTFifoIsEmpty(const RTFifo* fifo);
 
 
 /** Test if a regular FIFO is full
  *
- * \param fifo [in] FIFO to query; must not be NULL.
+ * @param fifo [in] FIFO to query; must not be NULL.
  *
- * \return `RTTrue` if the FIFO is full, `RTFalse` if not
+ * @return `RTTrue` if the FIFO is full, `RTFalse` if not
  */
 RTBool RTFifoIsFull(const RTFifo* fifo);
 
 
 /** Push an item into a regular FIFO
  *
- * \param fifo       [in,out] FIFO where to push the item; must not be NULL.
- * \param item       [in]     The item to push; must not be NULL. The item
+ * @param fifo       [in,out] FIFO where to push the item; must not be NULL.
+ * @param item       [in]     The item to push; must not be NULL. The item
  *                            itself will be copied, so you retain the ownership
  *                            of the `item`.
- * \param itemSize_B [in]     The size of the `item`, in bytes. `itemSize_B`
+ * @param itemSize_B [in]     The size of the `item`, in bytes. `itemSize_B`
  *                            must be > 0 and <= the size of FIFO items (as set
  *                            when the FIFO is initialised).
  *
- * \return `RTTrue` if success, `RTFalse` if the FIFO is full
+ * @return `RTTrue` if success, `RTFalse` if the FIFO is full
  */
 RTBool RTFifoPush(RTFifo* fifo, const void* item, uint16_t itemSize_B);
 
 
 /** Pop an item from a regular FIFO
  *
- * \param fifo       [in,out] FIFO from where to pop the item; must not be NULL.
- * \param item       [out]    Where to write the popped item; must not be NULL.
- * \param itemSize_B [in]     Size of the `item` buffer, in bytes. `itemSize_B`
+ * @param fifo       [in,out] FIFO from where to pop the item; must not be NULL.
+ * @param item       [out]    Where to write the popped item; must not be NULL.
+ * @param itemSize_B [in]     Size of the `item` buffer, in bytes. `itemSize_B`
  *                            must be >= the size of the FIFO items (as set
  *                            when the FIFO is initialised).
  *
- * \return `RTTrue` if success, `RTFalse` if FIFO is empty
+ * @return `RTTrue` if success, `RTFalse` if FIFO is empty
  */
 RTBool RTFifoPop(RTFifo* fifo, void* item, uint16_t itemSize_B);
+
 
 
 #endif /* RTFIFO_h_ */
