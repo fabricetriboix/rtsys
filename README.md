@@ -21,11 +21,20 @@ Even an 8-bit PIC should be able to run it.
 Getting started
 ---------------
 
-    $ scons --help
-    $ scons --mkdoc -j4    # Build
-    $ ./run_unit_tests.py  # Run the unit tests
-    $ ./install.py --help
-    $ ./install.py
+To build and install on Linux, a Makefile is provided. For other
+targets, you will have to come up with your own build system.
+
+Steps to build and install:
+
+    $ vim Makefile                    # Adjust your settings
+    $ make                            # Build
+    $ make test                       # Run unit tests
+    $ make install PREFIX=/your/path  # Install into PREFIX
+
+The Makefile will use ccache if available. You can disable it by adding
+`CCACHE=` on the command line, like so:
+
+    $ make CCACHE=
 
 Read the doxygen documentation to learn how to use rtsys.
 
@@ -103,4 +112,3 @@ very small systems.
 
 Please refer to [the rttest readme file](src/rttest/README.md) for
 more information.
-

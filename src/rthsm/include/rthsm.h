@@ -120,8 +120,7 @@
 
 
 /** All possible results from a state machine step */
-typedef enum
-{
+typedef enum {
     RTHSM_STEP_RESULT_OK,        /**< Event de-queued and transition actioned */
     RTHSM_STEP_RESULT_EMPTY,     /**< Event queue is empty */
     RTHSM_STEP_RESULT_DISCARDED, /**< Event de-queued, but does nothing */
@@ -131,8 +130,7 @@ typedef enum
 
 
 /** Event structure */
-typedef struct
-{
+typedef struct {
     uint8_t  id;                          /**< Event id */
     uint32_t params[RTHSM_EV_MAX_PARAMS]; /**< Event parameters */
 } RTHsmEvent;
@@ -189,8 +187,7 @@ typedef void (*RTHsmTransitionAction)(const RTHsmEvent* event, void* cookie);
 struct RTHsmState;
 
 /** Structure describing a transition */
-typedef struct
-{
+typedef struct {
     /** Id of the destination state */
     uint8_t toStateId;
 
@@ -227,8 +224,7 @@ typedef void (*RTHsmStateAction)(void* cookie);
 
 
 /** Structure describing a state */
-typedef struct RTHsmState
-{
+typedef struct RTHsmState {
     /** State id, must be unique and not `RTHSM_NULL_STATE_ID` */
     uint8_t id;
 
@@ -269,8 +265,7 @@ typedef struct RTHsmState
  * This structure should not be populated directly; use `RTHsmInit()` to
  * initialise this structure.
  */
-typedef struct
-{
+typedef struct {
     RTHsmState* states;     /**< Array of states */
     uint8_t     statesSize; /**< Size of `states` array */
     RTHsmState* global;     /**< The global state for this state machine */
@@ -360,6 +355,7 @@ RTHsmResult RTHsmStep(RTHsm* hsm, uint8_t* guardResult);
  * @param hsm [in,out] The state machine to reset
  */
 void RTHsmReset(RTHsm* hsm);
+
 
 
 #endif

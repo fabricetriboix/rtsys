@@ -26,7 +26,7 @@
  +------------------*/
 
 
-static struct RTPrivTestGroup* gFirstGroup = NULL;
+static RTTestGroup* gFirstGroup = NULL;
 
 
 
@@ -69,7 +69,7 @@ static RTBool rttestIsIn(uint32_t x, const uint32_t* set, uint16_t size);
  *         * -3 if a call to a group exit action failed
  */
 static int32_t rttestRunGroup(RTTestWriteOctet wrOctet,
-        const struct RTPrivTestGroup* group);
+        const RTTestGroup* group);
 
 
 /** Run the test cases of a test group
@@ -92,14 +92,14 @@ static int32_t rttestRunTestCases(RTTestWriteOctet wrOctet,
  +---------------------------------*/
 
 
-void RTPrivTestRegisterGroup(struct RTPrivTestGroup* group)
+void RTPrivTestRegisterGroup(RTTestGroup* group)
 {
     RTASSERT(group != NULL);
 
     if (gFirstGroup == NULL) {
         gFirstGroup = group;
     } else {
-        struct RTPrivTestGroup* i;
+        RTTestGroup* i;
         for (i = gFirstGroup; i->next != NULL; i = i->next) {
             RTASSERT(i->id != group->id);
         }
@@ -113,7 +113,7 @@ int32_t RTTestRun(RTTestWriteOctet wrOctet,
         const uint32_t* groups, uint16_t ngroups)
 {
     int32_t ret;
-    struct RTPrivTestGroup* group;
+    RTTestGroup* group;
 
     RTASSERT(wrOctet != NULL);
     RTASSERT(gFirstGroup != NULL);
@@ -181,7 +181,7 @@ static RTBool rttestIsIn(uint32_t x, const uint32_t* set, uint16_t size)
 
 
 static int32_t rttestRunGroup(RTTestWriteOctet wrOctet,
-        const struct RTPrivTestGroup* group)
+        const RTTestGroup* group)
 {
     int32_t ret = 0;
     uint32_t id;

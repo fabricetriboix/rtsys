@@ -79,7 +79,7 @@ RTT_GROUP_END(MyGroup, first_test_case, second_test_case)
 
 
 /** "Opaque" type to a test group */
-typedef struct RTPrivTestGroup RTTestGroup;
+typedef struct RTTestGroup RTTestGroup;
 
 
 /** Prototype of a function to write an octet to the output
@@ -194,6 +194,7 @@ typedef RTBool (*RTTestWriteOctet)(uint8_t octet);
  */
 int32_t RTTestRun(RTTestWriteOctet wrOctet,
         const uint32_t* groups, uint16_t ngroups);
+
 
 
 #endif /* RTTEST_h_ */

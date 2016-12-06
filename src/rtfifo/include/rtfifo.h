@@ -44,7 +44,7 @@
  * *Important note*: Never access the structure directly! Always use the FIFO
  * functions.
  */
-typedef struct RTPrivSmallFifo RTSmallFifo;
+typedef struct RTSmallFifo RTSmallFifo;
 
 
 /** Macro initialiser for a statically-allocated small FIFO
@@ -73,7 +73,7 @@ typedef struct RTPrivSmallFifo RTSmallFifo;
  * *Important note*: Never access the structure directly! Always use the FIFO
  * functions.
  */
-typedef struct RTPrivFifo RTFifo;
+typedef struct RTFifo RTFifo;
 
 
 /** Macro initialiser for a statically-allocated regular FIFO
@@ -277,6 +277,7 @@ RTBool RTFifoPush(RTFifo* fifo, const void* item, uint16_t itemSize_B);
  * @return `RTTrue` if success, `RTFalse` if FIFO is empty
  */
 RTBool RTFifoPop(RTFifo* fifo, void* item, uint16_t itemSize_B);
+
 
 
 #endif /* RTFIFO_h_ */
